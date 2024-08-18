@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 NULLABLE = {"blank": True, "null": True}
 
 
@@ -9,6 +11,13 @@ class Breed(models.Model):
     )
     description = models.TextField(
         verbose_name="Описание породы", help_text="Добавьте описание", **NULLABLE
+    )
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        verbose_name="Владелец",
+        **NULLABLE,
+        help_text="Укажите владельца"
     )
 
     class Meta:
@@ -35,6 +44,13 @@ class Dog(models.Model):
     )
     date_born = models.DateTimeField(
         verbose_name="Дата рождения", help_text="Укажите дату рождения", **NULLABLE
+    )
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        verbose_name="Владелец",
+        **NULLABLE,
+        help_text="Укажите владельца собаки"
     )
 
     class Meta:

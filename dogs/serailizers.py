@@ -15,7 +15,7 @@ class BreedSerializer(ModelSerializer):
 
 
 class DogSerializer(ModelSerializer):
-    breed = BreedSerializer()
+    breed = BreedSerializer(read_only=True)
 
     class Meta:
         model = Dog
@@ -31,4 +31,9 @@ class DogDetailSerializer(ModelSerializer):
 
     class Meta:
         model = Dog
-        fields = ("name", "breed", "date_born", "count_dog_with_same_breed",)
+        fields = (
+            "name",
+            "breed",
+            "date_born",
+            "count_dog_with_same_breed",
+        )
