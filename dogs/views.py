@@ -1,4 +1,6 @@
+from django.utils.decorators import method_decorator
 from django_filters.rest_framework import DjangoFilterBackend
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import filters
 from rest_framework.generics import (
     CreateAPIView,
@@ -16,6 +18,9 @@ from dogs.serailizers import BreedSerializer, DogSerializer, DogDetailSerializer
 from users.permissions import IsModer, IsOwner
 
 
+@method_decorator(name='list', decorator=swagger_auto_schema(
+    operation_description="description from swagger_auto_schema via method_decorator"
+))
 class DogViewSet(ModelViewSet):
     queryset = Dog.objects.all()
     filter_backends = [
